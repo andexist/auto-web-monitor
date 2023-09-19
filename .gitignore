@@ -7,4 +7,5 @@
 /app/supervisord.pid
 /app/supervisord.log
 /.vscode/
+/app/symfony.lock
 ###< symfony/framework-bundle ###
