@@ -1,0 +1,10 @@
+
+###> symfony/framework-bundle ###
+/app/config/secrets/
+/app/public/bundles/
+/app/var/
+/app/vendor/
+/app/supervisord.pid
+/app/supervisord.log
+/.vscode/
+###< symfony/framework-bundle ###
