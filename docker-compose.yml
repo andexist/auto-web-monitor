@@ -16,7 +16,6 @@ services:
     command: bash -c "composer install && supervisord"
     depends_on:
       - mysql-server
-      - rabbitmq
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 30s
