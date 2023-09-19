@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+  autowebmonitor:
+    container_name: autowebmonitor
+    build:
+      context: '.'
+      args:
+        - APP_ENV=development
+        - COMPOSER_NO_INTERACTION=0
+    ports:
+      - 3006:80
+    networks:
+      - linknet
+    volumes:
+      - ./app:/app
+    command: bash -c "composer install && supervisord"
+    depends_on:
+      - mysql-server
+      - rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  mysql-server:
+    image: mysql:8.0
+    container_name: webmonitor-db
+    environment:
+      MYSQL_DATABASE: webmonitor
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3307:3306
+    networks:
+      - linknet
+    volumes:
+      - mysql_data:/var/lib/mysql:rw
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  mysql_data:
+
+networks:
+  linknet:
+    name: app_network    
