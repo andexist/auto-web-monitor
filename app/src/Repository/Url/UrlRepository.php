@@ -3,7 +3,7 @@
 namespace App\Repository\Url;
 
 use App\Entity\Url;
-use App\Repository\Ulr\Interface\UrlRepositoryInterface;
+use App\Repository\Url\Interface\UrlRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

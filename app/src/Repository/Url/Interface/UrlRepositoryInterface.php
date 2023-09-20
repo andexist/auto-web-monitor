@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Ulr\Interface;
+namespace App\Repository\Url\Interface;
 
 use App\Entity\Url;
 
