@@ -15,7 +15,7 @@ class RickAndMortyApiClient extends AbstractHttpClient implements RickAndMortyAp
 {
     protected static string $characterEndpoint = 'character/';
 
-    public function __construct(private HttpClientInterface $client)
+    public function __construct(protected HttpClientInterface $client)
     {
         $uri = 'https://rickandmortyapi.com/api';
         $headers = [
@@ -33,9 +33,14 @@ class RickAndMortyApiClient extends AbstractHttpClient implements RickAndMortyAp
 
         $response = $this->fetch('GET', self::$characterEndpoint, $queryParams);
 
+        if ($response->getStatusCode() === 404) {
+            //throw new RickAndMortyNoNextPageException();
+        }
+
+        $charactersData = $response->toArray();
         $characters = [];
 
-        foreach ($response['results'] as $character) {
+        foreach ($charactersData['results'] as $character) {
             $characterDTO = new CharacterDTO(
                 $character['id'],
                 $character['name'],
@@ -49,7 +54,7 @@ class RickAndMortyApiClient extends AbstractHttpClient implements RickAndMortyAp
 
         return new CharacterListDTO(
             $characters,
-            $this->getMetadata($response['info'])
+            $this->getMetadata($charactersData['info'])
         );
     }
 

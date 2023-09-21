@@ -1,7 +1,10 @@
 export PROJECT_NAME=autowebmonitor
 export IMAGE_NAME=autowebmonitor
 export PROJECT_TITLE="Auto Web Monitor App"
+export PROJECT_TITLE="Auto Web Monitor App"
 export PROJECT_HTTP_PORT=3006
+export REDIS_TITLE="Redis Light"
+export REDISLIGHT_HTTP_PORT=8001
 
 .SILENT:info
 
@@ -10,6 +13,10 @@ info:
 	echo "\033[92m${PROJECT_TITLE}\033[0m"
 	echo ""
 	echo "	- \033[35mHTTP:\033[0m : http://localhost:${PROJECT_HTTP_PORT}"
+	echo ""
+	echo "\033[92m${REDIS_TITLE}\033[0m"
+	echo ""
+	echo "	- \033[35mHTTP:\033[0m : http://localhost:${REDISLIGHT_HTTP_PORT}"
 	echo ""
 
 upd:

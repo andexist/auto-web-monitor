@@ -20,7 +20,7 @@ class Url
     private ?int $statusCode = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $request_count = null;
+    private ?int $redirects_count = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $possible_keywords = null;
@@ -54,14 +54,14 @@ class Url
         return $this;
     }
 
-    public function getRequestCount(): ?int
+    public function getRedirectsCount(): ?int
     {
-        return $this->request_count;
+        return $this->redirects_count;
     }
 
-    public function setRequestCount(?int $request_count): static
+    public function setRedirectsCount(?int $redirects_count): static
     {
-        $this->request_count = $request_count;
+        $this->redirects_count = $redirects_count;
 
         return $this;
     }
