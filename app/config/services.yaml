@@ -28,4 +28,11 @@ services:
             $host: '%env(REDIS_HOST)%'
             $port: '%env(REDIS_PORT)%'
         public: true
-        shared: true         
+        shared: true
+
+    App\Schedule\Url\UrlDataExtractorScheduleProvider:
+        tags:
+            - { name: 'scheduler.provider' }
+    App\Schedule\Url\UrlGeneratorScheduleProvider:
+        tags:
+            - { name: 'scheduler.provider' }                  

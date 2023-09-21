@@ -10,15 +10,16 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_NO_INTERACTION 1
 
 COPY ./infra/nginx/*.conf /opt/docker/etc/nginx/vhost.common.d/
+COPY ./infra/supervisor/*.conf /opt/docker/etc/supervisor.d/
 
 # Define an alias for 'php bin/console'
 RUN echo 'alias sf="php bin/console"' >> ~/.bashrc
 
 #Crontab setup
-COPY ./infra/cron/* /etc/cron.d
-RUN chmod 0644 /etc/cron.d/crontab
-RUN touch /var/log/cron.log
-CMD cron && tail -f /var/log/cron.log
+# COPY ./infra/cron/* /etc/cron.d
+# RUN chmod 0644 /etc/cron.d/crontab
+# RUN touch /var/log/cron.log
+# CMD cron && tail -f /var/log/cron.log
 
 # Set the working directory
 WORKDIR /tmp

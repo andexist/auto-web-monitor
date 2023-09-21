@@ -16,7 +16,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'url:extract-data',
     description: 'Extract url data',
 )]
-class CheckUrlCommand extends Command
+class UrlDataExtractorCommand extends Command
 {
     public function __construct(
         private UrlDataExtractorService $urlDataExtractorService,
