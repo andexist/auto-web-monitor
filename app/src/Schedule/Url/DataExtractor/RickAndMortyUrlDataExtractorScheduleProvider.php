@@ -10,13 +10,13 @@ use Symfony\Component\Scheduler\ScheduleProviderInterface;
 use Symfony\Component\Scheduler\Attribute\AsSchedule;
 use Symfony\Component\Scheduler\RecurringMessage;
 
-#[AsSchedule('default_1')]
+#[AsSchedule('url_data_extract')]
 class RickAndMortyUrlDataExtractorScheduleProvider implements ScheduleProviderInterface
 {
     public function getSchedule(): Schedule
     {
         return (new Schedule())->add(
-            RecurringMessage::every('5 seconds', new RickAndMortyUrlDataExtractorMessage()),
+            RecurringMessage::every('11 minutes', new RickAndMortyUrlDataExtractorMessage()),
         );
     }
 }

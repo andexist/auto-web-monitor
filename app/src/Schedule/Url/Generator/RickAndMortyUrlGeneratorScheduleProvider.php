@@ -10,13 +10,13 @@ use Symfony\Component\Scheduler\ScheduleProviderInterface;
 use Symfony\Component\Scheduler\Attribute\AsSchedule;
 use Symfony\Component\Scheduler\RecurringMessage;
 
-#[AsSchedule('default')]
+#[AsSchedule('url_generate')]
 class RickAndMortyUrlGeneratorScheduleProvider implements ScheduleProviderInterface
 {
     public function getSchedule(): Schedule
     {
         return (new Schedule())->add(
-            RecurringMessage::every('10 seconds', new RickAndMortyUrlGeneratorMessage())
+            RecurringMessage::every('10 minutes', new RickAndMortyUrlGeneratorMessage())
         );
     }
 }
