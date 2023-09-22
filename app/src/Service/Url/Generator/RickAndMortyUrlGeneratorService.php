@@ -1,16 +1,16 @@
 <?php
 
-namespace App\MessageHandler\Url;
+declare(strict_types=1);
 
-use App\Entity\Url;
+namespace App\Service\Url\Generator;
+
 use App\HttpClient\RickAndMorty\RickAndMortyApiClient;
-use App\Message\Url\UrlGeneratorMessage;
 use App\Repository\Cache\Redis\RickAndMorty\RickAndMortyCacheRepository;
 use App\Service\Url\UrlService;
-use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use App\Entity\Url;
+use App\Service\Url\Interface\UrlGeneratorInterface;
 
-#[AsMessageHandler]
-final class UrlGeneratorMessageHandler
+class RickAndMortyUrlGeneratorService implements UrlGeneratorInterface
 {
     public function __construct(
         private RickAndMortyApiClient $client,
@@ -19,9 +19,9 @@ final class UrlGeneratorMessageHandler
     ) {
     }
 
-    public function __invoke(UrlGeneratorMessage $urlGeneratorMessage)
+    public function generateUrl()
     {
-        $page = $this->rickAndMortyCacheRepository->getPreviousKey() ?? 1;
+        $page = (int)$this->rickAndMortyCacheRepository->getPreviousKey() ?? 1;
 
         $charactersListDTO = $this->client->fetchCharacters($page);
         $next = $charactersListDTO->getMetadataDTO()->getNext();

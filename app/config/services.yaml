@@ -30,9 +30,9 @@ services:
         public: true
         shared: true
 
-    App\Schedule\Url\UrlDataExtractorScheduleProvider:
+    App\Schedule\Url\Generator\RickAndMortyUrlGeneratorScheduleProvider:
         tags:
             - { name: 'scheduler.provider' }
-    App\Schedule\Url\UrlGeneratorScheduleProvider:
+    App\Schedule\Url\DataExtractor\RickAndMortyUrlDataExtractorScheduleProvider:
         tags:
             - { name: 'scheduler.provider' }                  

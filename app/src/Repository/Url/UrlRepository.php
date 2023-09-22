@@ -42,6 +42,22 @@ class UrlRepository extends ServiceEntityRepository implements UrlRepositoryInte
         return parent::findOneBy($criteria, $orderBy);
     }
 
+    /**
+     * @return Url[]
+     */
+    public function findUrlsWithEmptyFields(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.url IS NOT NULL')
+            ->andWhere('u.statusCode IS NULL')
+            ->andWhere('u.redirectsCount IS NULL')
+            ->andWhere('u.possibleKeywords IS NULL')
+            ->orderBy('u.id', 'ASC')
+            ->setMaxResults(20)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function count(array $criteria = []): int
     {
         return parent::count($criteria);

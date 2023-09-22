@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Url;
+namespace App\Service\Url\DataExtractor;
 
 use App\DTO\Url\UrlDataDTO;
 use Symfony\Component\HttpClient\Response\CurlResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Service\Url\Interface\UrlDataExtractorInterface;
 
-class UrlDataExtractorService
+class RickAndMortyUrlDataExtractorService implements UrlDataExtractorInterface
 {
     public function __construct(private HttpClientInterface $httpClient)
     {
@@ -25,17 +26,17 @@ class UrlDataExtractorService
         );
     }
 
-    private function getUrlStatusCode(CurlResponse $response): int
+    public function getUrlStatusCode(CurlResponse $response): int
     {
         return $response->getStatusCode();
     }
 
-    private function getUrlRedirectsCount(CurlResponse $response): int
+    public function getUrlRedirectsCount(CurlResponse $response): int
     {
         return $response->getInfo('redirect_count');
     }
 
-    private function getUrlPossibleKeywords(string $url): string
+    public function getUrlPossibleKeywords(string $url): string
     {
         $keywords = null;
 

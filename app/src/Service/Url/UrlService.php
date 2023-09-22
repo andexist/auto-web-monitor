@@ -23,7 +23,15 @@ class UrlService
       throw new Exception("change this exception into ResourceNotFoundException");
    }
 
-   public function findALl(): array
+   /**
+    * @return Url[]
+    */
+   public function findUrlsWithEmptyFields(): array
+   {
+      return $this->urlRepository->findUrlsWithEmptyFields();
+   }
+
+   public function findAll(): array
    {
       return $this->urlRepository->findAll();
    }

@@ -20,10 +20,10 @@ class Url
     private ?int $statusCode = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $redirects_count = null;
+    private ?int $redirectsCount = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $possible_keywords = null;
+    private ?string $possibleKeywords = null;
 
     public function getId(): ?int
     {
@@ -56,24 +56,24 @@ class Url
 
     public function getRedirectsCount(): ?int
     {
-        return $this->redirects_count;
+        return $this->redirectsCount;
     }
 
-    public function setRedirectsCount(?int $redirects_count): static
+    public function setRedirectsCount(?int $redirectsCount): static
     {
-        $this->redirects_count = $redirects_count;
+        $this->redirectsCount = $redirectsCount;
 
         return $this;
     }
 
     public function getPossibleKeywords(): ?string
     {
-        return $this->possible_keywords;
+        return $this->possibleKeywords;
     }
 
-    public function setPossibleKeywords(?string $possible_keywords): static
+    public function setPossibleKeywords(?string $possibleKeywords): static
     {
-        $this->possible_keywords = $possible_keywords;
+        $this->possibleKeywords = $possibleKeywords;
 
         return $this;
     }

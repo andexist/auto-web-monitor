@@ -2,9 +2,7 @@
 
 namespace App\Controller\Url;
 
-use App\CacheClient\Redis\Interface\RedisClientInterface;
-use App\HttpClient\RickAndMorty\Interface\RickAndMortyApiClientInterface;
-use App\Message\Url\UrlGeneratorMessage;
+use App\Message\Url\DataExtractor\RickAndMortyUrlDataExtractorMessage;
 use App\Service\Url\UrlService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,15 +13,19 @@ class UrlController extends AbstractController
 {
     public function __construct(
         private UrlService $urlService,
-        private MessageBusInterface $messageBus
+        private MessageBusInterface $bus
     ) {
     }
 
     #[Route('/url', name: 'app_url')]
     public function index(): JsonResponse
     {
-       
-        $this->messageBus->dispatch(new UrlGeneratorMessage());
+        
+        $this->bus->dispatch(new RickAndMortyUrlDataExtractorMessage());
+
+       // $url = $this->urlService->findUrlsWithEmptyFields();
+
+        //dd($url);
 
         return $this->json([
             'message' => 'Welcome to your new controller!',
