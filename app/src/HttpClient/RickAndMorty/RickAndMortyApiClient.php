@@ -7,6 +7,7 @@ namespace App\HttpClient\RickAndMorty;
 use App\DTO\RickAndMarty\Character\CharacterDTO;
 use App\DTO\RickAndMarty\Character\CharacterListDTO;
 use App\DTO\RickAndMarty\MetadataDTO;
+use App\Exception\RickAndMorty\RickAndMortyNoNextPageException;
 use App\HttpClient\AbstractHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\HttpClient\RickAndMorty\Interface\RickAndMortyApiClientInterface;
@@ -34,7 +35,7 @@ class RickAndMortyApiClient extends AbstractHttpClient implements RickAndMortyAp
         $response = $this->fetch('GET', self::$characterEndpoint, $queryParams);
 
         if ($response->getStatusCode() === 404) {
-            //throw new RickAndMortyNoNextPageException();
+            throw new RickAndMortyNoNextPageException();
         }
 
         $charactersData = $response->toArray();

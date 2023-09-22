@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\Url;
 
+use App\Exception\MissingResourceException;
 use App\Repository\Url\Interface\UrlRepositoryInterface;
 use App\Entity\Url;
-use Exception;
 
 class UrlService
 {
@@ -20,7 +20,7 @@ class UrlService
          return $url;
       }
 
-      throw new Exception("change this exception into ResourceNotFoundException");
+      throw new MissingResourceException((string)$id, Url::class);
    }
 
    /**
