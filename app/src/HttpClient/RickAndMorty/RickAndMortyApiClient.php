@@ -11,6 +11,7 @@ use App\Exception\RickAndMorty\RickAndMortyNoNextPageException;
 use App\HttpClient\AbstractHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\HttpClient\RickAndMorty\Interface\RickAndMortyApiClientInterface;
+use App\Constants\HttpMethodConstants;
 
 class RickAndMortyApiClient extends AbstractHttpClient implements RickAndMortyApiClientInterface
 {
@@ -32,7 +33,7 @@ class RickAndMortyApiClient extends AbstractHttpClient implements RickAndMortyAp
             'page' => $page
         ];
 
-        $response = $this->fetch('GET', self::$characterEndpoint, $queryParams);
+        $response = $this->fetch(HttpMethodConstants::GET, self::$characterEndpoint, $queryParams);
 
         if ($response->getStatusCode() === 404) {
             throw new RickAndMortyNoNextPageException();

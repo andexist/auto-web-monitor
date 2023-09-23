@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\MessageHandler\Url\DataExtractor;
 
-use App\Message\Url\DataExtractor\RickAndMortyUrlDataExtractorMessage;
-use Symfony\Component\Messenger\Attribute\AsMessageHandler;
-use App\Service\Url\DataExtractor\RickAndMortyUrlDataExtractorService;
 use App\Service\Url\UrlService;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use App\Message\Url\DataExtractor\RickAndMortyUrlDataExtractorMessage;
+use App\Service\Url\DataExtractor\RickAndMorty\RickAndMortyUrlDataExtractorService;
 
 #[AsMessageHandler]
 final class RickAndMortyUrlDataExtractorMessageHandler

@@ -7,21 +7,23 @@ namespace App\Service\Url\DataExtractor;
 use App\DTO\Url\UrlDataDTO;
 use Symfony\Component\HttpClient\Response\CurlResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use App\Service\Url\Interface\UrlDataExtractorInterface;
+use App\Constants\HttpMethodConstants;
 
-class RickAndMortyUrlDataExtractorService implements UrlDataExtractorInterface
+abstract class AbstractUrlDataExtractor
 {
     public function __construct(private HttpClientInterface $httpClient)
     {
     }
 
+    abstract protected function getUrlPossibleKeywords(string $url): string;
+
     public function extractUrlData(string $url): UrlDataDTO
     {
-        $resposne = $this->httpClient->request('GET', $url);
+        $response = $this->httpClient->request(HttpMethodConstants::GET, $url);
 
         return new UrlDataDTO(
-            $this->getUrlStatusCode($resposne),
-            $this->getUrlRedirectsCount($resposne),
+            $this->getUrlStatusCode($response),
+            $this->getUrlRedirectsCount($response),
             $this->getUrlPossibleKeywords($url)
         );
     }
@@ -34,19 +36,5 @@ class RickAndMortyUrlDataExtractorService implements UrlDataExtractorInterface
     public function getUrlRedirectsCount(CurlResponse $response): int
     {
         return $response->getInfo('redirect_count');
-    }
-
-    public function getUrlPossibleKeywords(string $url): string
-    {
-        $keywords = null;
-
-        if (stripos($url, 'api')) {
-            $apiPos = strpos($url, "/api/");
-            $url = substr($url, $apiPos + strlen("/api/"));
-            $url = explode('/', $url);
-            $keywords = json_encode($url);
-        }
-
-        return $keywords;
     }
 }
