@@ -34,3 +34,6 @@ bash:
 
 logs:
 	docker-compose -p=${PROJECT_NAME} logs -t --follow --tail=500
+
+migrate:
+	docker-compose -p=${PROJECT_NAME} exec ${PROJECT_NAME} php bin/console doctrine:migrations:migrate -n
