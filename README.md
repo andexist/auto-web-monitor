@@ -1,5 +1,5 @@
 # auto-web-monitor
-AutoWebMonitor - generates urls and extraxts url data
+AutoWebMonitor - generates urls and extracts url data
 
 ## How to use the App
 
