@@ -11,7 +11,6 @@ use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
 class ExceptionListener
 {
     public function onKernelException(ExceptionEvent $event)
@@ -36,6 +35,10 @@ class ExceptionListener
             RickAndMortyNoNextPageException::class => [
                 'status' => Response::HTTP_NOT_FOUND,
                 'type' => 'RickAndMortyNoNextPageException',
+            ],
+            InvalidUrlException::class => [
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
+                'type' => 'InvalidUrlException',
             ],
         ];
 

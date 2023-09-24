@@ -37,3 +37,6 @@ logs:
 
 migrate:
 	docker-compose -p=${PROJECT_NAME} exec ${PROJECT_NAME} php bin/console doctrine:migrations:migrate -n
+
+phpunit:
+	docker-compose -p=${PROJECT_NAME} exec ${PROJECT_NAME} vendor/bin/phpunit

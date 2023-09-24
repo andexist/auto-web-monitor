@@ -16,7 +16,7 @@ class RickAndMortyUrlGeneratorScheduleProvider implements ScheduleProviderInterf
     public function getSchedule(): Schedule
     {
         return (new Schedule())->add(
-            RecurringMessage::every('10 minutes', new RickAndMortyUrlGeneratorMessage())
+            RecurringMessage::every('10 hours', new RickAndMortyUrlGeneratorMessage())
         );
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Url\Generator\RickAndMorty;
 
+use App\Exception\InvalidUrlException;
 use App\HttpClient\RickAndMorty\RickAndMortyApiClient;
 use App\Repository\Cache\Redis\RickAndMorty\RickAndMortyCacheRepository;
 use App\Service\Url\Generator\Interface\UrlGeneratorInterface;
@@ -33,12 +34,23 @@ class RickAndMortyUrlGeneratorService implements UrlGeneratorInterface
         $key = (string)$nextPage;
 
         $this->rickAndMortyCacheRepository->setPreviousKey($key);
-        $urls = [];
+        $validUrls = [];
+        $invalidUrls = [];
 
         foreach ($charactersListDTO->getCharacterDTO() as $characterDTO) {
-            $urls[] = $characterDTO->getImage();
+            $imageUrl = $characterDTO->getImage();
+
+            if (filter_var($imageUrl, FILTER_VALIDATE_URL)) {
+                $validUrls[] = $imageUrl;
+            } else {
+                $invalidUrls[] = $imageUrl;
+            }
         }
 
-        return $urls;
+        if (!empty($invalidUrls)) {
+            throw new InvalidUrlException(RickAndMortyUrlGeneratorService::class, $invalidUrls);
+        }
+
+        return $validUrls;
     }
 }
