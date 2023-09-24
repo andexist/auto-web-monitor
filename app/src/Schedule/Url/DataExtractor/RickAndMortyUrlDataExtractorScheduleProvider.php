@@ -16,7 +16,7 @@ class RickAndMortyUrlDataExtractorScheduleProvider implements ScheduleProviderIn
     public function getSchedule(): Schedule
     {
         return (new Schedule())->add(
-            RecurringMessage::every('11 minutes', new RickAndMortyUrlDataExtractorMessage()),
+            RecurringMessage::every('11 seconds', new RickAndMortyUrlDataExtractorMessage()),
         );
     }
 }

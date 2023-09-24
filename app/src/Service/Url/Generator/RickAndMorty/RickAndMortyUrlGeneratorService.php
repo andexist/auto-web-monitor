@@ -6,11 +6,10 @@ namespace App\Service\Url\Generator\RickAndMorty;
 
 use App\HttpClient\RickAndMorty\RickAndMortyApiClient;
 use App\Repository\Cache\Redis\RickAndMorty\RickAndMortyCacheRepository;
-use App\Service\Url\Generator\AbstractUrlGenerator;
+use App\Service\Url\Generator\Interface\UrlGeneratorInterface;
 use App\Service\Url\UrlService;
-use App\Entity\Url;
 
-class RickAndMortyUrlGeneratorService extends AbstractUrlGenerator
+class RickAndMortyUrlGeneratorService implements UrlGeneratorInterface
 {
     public function __construct(
         private RickAndMortyApiClient $httpClient,
@@ -19,7 +18,12 @@ class RickAndMortyUrlGeneratorService extends AbstractUrlGenerator
     ) {
     }
 
-    public function generateUrl(): void
+    public function generateUrl(): string
+    {
+        return $this->generateUrls()[0];
+    }
+
+    public function generateUrls(): array
     {
         $page = (int)$this->rickAndMortyCacheRepository->getPreviousKey() ?? 1;
 
@@ -29,11 +33,12 @@ class RickAndMortyUrlGeneratorService extends AbstractUrlGenerator
         $key = (string)$nextPage;
 
         $this->rickAndMortyCacheRepository->setPreviousKey($key);
+        $urls = [];
 
         foreach ($charactersListDTO->getCharacterDTO() as $characterDTO) {
-            $url = new Url();
-            $url->setUrl($characterDTO->getImage());
-            $this->urlService->persist($url);
+            $urls[] = $characterDTO->getImage();
         }
+
+        return $urls;
     }
 }
